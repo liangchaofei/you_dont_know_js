@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-20 22:29:04
- * @LastEditTime: 2019-09-24 10:42:31
+ * @LastEditTime: 2019-09-24 10:43:35
  * @LastEditors: Please set LastEditors
  -->
 # 01
@@ -133,7 +133,8 @@
     var a = 2;
     (function IIFE( global ) {
         var a = 3;
-        console.log( a ); // 3 console.log( global.a ); // 2
+        console.log( a ); // 3 
+        console.log( global.a ); // 2
     })( window );
     console.log( a ); // 2
 ```
