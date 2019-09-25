@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit 
  * @Author: your name
  * @Date: 2019-09-24 20:58:58
- * @LastEditTime: 2019-09-25 09:53:49
+ * @LastEditTime: 2019-09-25 13:15:05
  * @LastEditors: Please set LastEditors
  -->
 # 01_关于this
@@ -208,4 +208,62 @@ console.log(foo.count); // 4
     }
     var bar = new Foo(2)
     console.log(bar.a) //2
+```
+
+### 优先级
++ 默认绑定最低
++ 显示绑定比隐式绑定高
+```js
+    function foo(){
+        console.log(this.a)
+    }
+    var obj1= {
+        a:2,
+        foo:foo
+    }
+    var obj2 = {
+        a:3,
+        foo:foo
+    }
+    obj1.foo()  //2
+    obj2.foo()  //3
+
+    obj1.foo.call(obj2) //3
+    obj2.foo.call(obj1) //2
+```
++ new绑定比隐式绑定高
+```js
+    function foo(sth){
+        this.a = sth;
+    }
+    var obj1= {
+        foo:foo,
+    }
+    var obj2 = {}
+    obj1.foo(2)
+    console.log(obj1.a) //2
+
+    obj1.foo.call(obj2, 3)
+    console.log(obj2.a) //3
+
+    var bar = new obj1.foo(4)
+    console.log(obj1.a) //2
+    console.log(bar.a)  //4
+```
+### 判断this
++ 1. 函数是否在new中调用(new绑定)?如果是的话this绑定的是新创建的对象。
+```js
+    var bar = new foo()
+```
++ 2. 函数是否通过call、apply(显式绑定)或者硬绑定调用?如果是的话，this绑定的是 指定的对象
+```js
+    var bar = foo.call(obj2)
+```
++ 3. 函数是否在某个上下文对象中调用(隐式绑定)?如果是的话，this 绑定的是那个上 下文对象。
+```js   
+    var bar = obj1.foo()
+```
++ 4. 如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到 全局对象。
+```js
+    var bar = foo()
 ```
