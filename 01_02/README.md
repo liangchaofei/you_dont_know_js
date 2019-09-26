@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit 
  * @Author: your name
  * @Date: 2019-09-24 20:58:58
- * @LastEditTime: 2019-09-25 13:15:05
+ * @LastEditTime: 2019-09-26 09:15:42
  * @LastEditors: Please set LastEditors
  -->
 # 01_关于this
@@ -266,4 +266,14 @@ console.log(foo.count); // 4
 + 4. 如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到 全局对象。
 ```js
     var bar = foo()
+```
+
+### 被忽略的this
++ 如果把 null 或者 undefined 作为 this 的绑定对象传入 call、apply 或者 bind，这些值,在调用时会被忽略，实际应用的是默认绑定规则:
+```js   
+    function foo() { 
+        console.log( this.a );
+    }
+    var a = 2;
+    foo.call( null ); // 2
 ```
